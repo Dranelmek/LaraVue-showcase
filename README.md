@@ -57,3 +57,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Notes
+I this section I'll keep notes to myself and when the project is done I will adapt the entire readme
+
+### Project scope
+This will be a simple CRUD site using Laravel for it's back end and Vue.js for it's frontend with Inertia for vue integration.
+The site will allow users to access the features of [FFDLP](https://github.com/Dranelmek/ffdlp) via their webbrowser.
+Note that this means all the logic originally implemented in Python will need to be rewritten in PHP. 
+The site will support account creation, data tracking, cookies and url parsing.
+Future developments beyond this demonstration could include:
+    - better security
+    - ddos protection
+    - rate limits for users
+    - a subscription model
