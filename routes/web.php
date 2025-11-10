@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::inertia('/', 'Home');
+Route::inertia('/', 'Home')->name('home');
 
-Route::get('/about', function () {
-    return Inertia::render('About', ['user' => 'John Doe']);
-});
+Route::inertia('/about', 'About', ['user' => 'John Doe'])->name('about');
 
+Route::inertia('/register', 'Auth/Register')->name('register');
+
+Route::inertia('/login', 'Auth/Login')->name('login');

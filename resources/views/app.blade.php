@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @vite('resources/js/app.js')
     @inertiaHead
+    @routes
   </head>
   <body>
     @inertia
