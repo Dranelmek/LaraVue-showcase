@@ -18,10 +18,11 @@
     input[type="search"],
     input[type="tel"],
     input[type="url"], textarea {
-        @apply block w-full rounded-md border-0 p-2 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm bg-white;
+        @apply block w-full border-0 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
+        background-color: #1A1A1A;
     }
     label {
-        @apply block text-sm font-medium leading-6 text-slate-900 first-letter:capitalize;
+        @apply block text-sm font-medium leading-6 text-slate-200 mb-1 first-letter:capitalize;
     }
     header {
         @apply shadow-md;
@@ -46,11 +47,10 @@
         transition: 100ms all ease-in;
     }
     .nav-link {
-        @apply text-slate-200 hover:text-white rounded-md px-3 py-2 text-sm font-bold;
+        @apply text-slate-200 hover:bg-indigo-600 hover:text-white rounded-md px-3 py-2 text-sm font-bold;
         transition: 100ms all ease-in;
     }
     .nav-link:hover {
-        background-color: #F67B8A;
         transition: 100ms all ease-in;
     }
     .title {
@@ -80,35 +80,16 @@
     .round-btn {
         @apply w-8 h-8 overflow-auto rounded-full bg-slate-100 focus:outline-none focus:ring-1 focus:ring-slate-100 focus:ring-offset-2 focus:ring-offset-slate-800;
     }
-    .registration-form {
-    @apply max-w-md mx-auto mt-16 p-8 bg-white shadow-2xl;
-    @apply border border-gray-300 rounded-xl;
+    .auth-form {
+    @apply max-w-md mx-auto mt-8 p-8 shadow-2xl;
+    @apply border rounded-xl;
+    background-color: #333333;
+    border-color: #333333; 
     }
-
     .form-group {
     @apply mb-5;
     }
-
-    .form-group label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
-    }
-
-    .form-group input {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500;
-    }
-
     .submit-button {
     @apply w-full py-2 mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-150 ease-in-out;
     }
 }
-
-
-
-/* 
-Color Palette:
-- Peach-Pink: #F67B8A
-- Peach-Yellow: #FFDD76
-- Soft-Grey: #4A4A4A
-- Dark-Grey: #333333
-- Darker-Grey: #1A1A1A
-*/

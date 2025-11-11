@@ -2,10 +2,10 @@
     <div>
         <Head title="- Register" />
         
-        <h1 class="form-title">
-            <h2>Register a new account</h2>
-        </h1>
-        <form @submit.prevent="registerUser" class="registration-form">
+        <form class="auth-form">
+            <h2 class="text-3xl font-extrabold text-slate-200 mb-8 text-center">
+                Register a new account
+            </h2>
             <div class="form-group">
                 <label for="email">Email Address:</label>
                 <input type="email" id="email" required
