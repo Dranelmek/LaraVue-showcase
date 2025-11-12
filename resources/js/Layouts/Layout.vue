@@ -1,24 +1,40 @@
 <script setup>
-</script>
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 
+const page = usePage()
+const user = computed(() => page.props.auth.user)
+</script>
 <template>
     <div>
         <header>
-            <nav>
-                <div class="space-x-6">
-                    <Link :href="route('home')"
-                    class="nav-link">Home</Link>
+            <div class="nav-container">
+                <img :src="getImageUrl(FFDLP)" alt="FFDLP Logo" class="logo" />
+                <nav>
                     
-                </div>
-                <div class="space-x-6">
-                    <Link :href="route('about')"
-                    class="nav-link">About</Link>
-                </div>
-                <div class="space-x-6">
-                    <Link :href="route('login')"
-                    class="nav-link">Login</Link>
-                </div>
-            </nav>
+                    <div class="space-x-6">
+                        <Link :href="route('home')"
+                        class="nav-link">Home</Link>
+                    </div>
+                    <div class="space-x-6">
+                        <Link :href="route('about')"
+                        class="nav-link">About</Link>
+                    </div>
+                    <div class="space-x-6">
+                        <a href="https://github.com/Dranelmek/LaraVue-showcase"
+                        class="nav-link">GitHub</a>
+                    </div>
+                    
+                    <div v-if="user" class="space-x-6">
+                        <Link :href="route('logout')" method="post" as="button"
+                        class="nav-link">Logout</Link>
+                    </div>
+                    <div v-else class="space-x-6">
+                        <Link :href="route('login')"
+                        class="nav-link">Login</Link>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <main>
@@ -27,13 +43,14 @@
     </div>
 </template>
 
-<style>
-.navLinks a {
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.navLinks a:hover {
-    color: rgb(193, 243, 243);
-}
-</style>
+<script>
+export default {
+    props: ['FFDLP'],
+    methods: {
+        getImageUrl() {
+            return '/images/logo.png';
+            // ask Joel why this works and asset() doesn't
+        }
+    }
+};
+</script>

@@ -1,41 +1,60 @@
+<script setup>
+import { router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    login_id: null,
+    password: null,
+});
+
+const submit = () => {
+    form.post(route('login'), {
+        onError: () => {
+            form.reset('password');
+        },
+    });
+};
+
+const navigateToRegister = () => {
+    router.visit(route('register'));
+};
+</script>
+
 <template>
     <div>
         <Head title="- Login" />
 
-        <form
+        <form @submit.prevent="submit"
             class="auth-form">
-            <h2 class="text-3xl font-extrabold text-slate-200 mb-8 text-center">
+            <h2 class="form-title">
                 Welcome Back
             </h2>
 
-            <!-- Username/Email Input -->
             <div class="form-group mb-6">
                 <label for="login-id">
                     Username or Email
                 </label>
-                <input type="text" id="login-id" required
-                    placeholder="Enter your username or email" />
+                <input type="text" id="login-id" required :class="form.errors.login_id?'error':''"
+                    :placeholder="form.errors.login_id?form.errors.login_id:'Enter your username or email'" v-model="form.login_id"/>
             </div>
 
-            <!-- Password Input -->
             <div class="form-group mb-8">
                 <label for="login-password">
                     Password
                 </label>
-                <input type="password" id="login-password" required
-                    placeholder="Your password" />
+                <input type="password" id="login-password" required 
+                    placeholder="Your password" v-model="form.password"/>
             </div>
 
-            <!-- Login Button (Submit) - Same style as Register button -->
             <button type="submit" class="submit-button">
                 Log In
             </button>
 
-            <!-- Register Link/Button -->
+            <!-- I could add a remember me button since laravel has that functionality implemented -->
+
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
                     Don't have an account?
-                    <!-- This is a decorative button/link styled to look like a call-to-action -->
                     <button @click.prevent="navigateToRegister"
                         class="ml-1 font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none focus:underline">
                         Register here
@@ -45,21 +64,3 @@
         </form>
     </div>
 </template>
-
-<script setup>
-import { reactive } from 'vue';
-import { router } from '@inertiajs/vue3';
-
-const loginData = reactive({
-    identifier: '',
-    password: ''
-});
-
-const loginUser = () => {
-    pass; // Implement login logic here
-};
-
-const navigateToRegister = () => {
-    router.visit(route('register'));
-};
-</script>

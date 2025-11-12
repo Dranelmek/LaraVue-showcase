@@ -12,7 +12,7 @@
 }
 
 @layer components {
-    input[type="text"],
+    .auth-form input[type="text"],
     input[type="email"],
     input[type="password"],
     input[type="search"],
@@ -21,23 +21,26 @@
         @apply block w-full border-0 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
         background-color: #1A1A1A;
     }
-    label {
+    .auth-form label {
         @apply block text-sm font-medium leading-6 text-slate-200 mb-1 first-letter:capitalize;
     }
     header {
         @apply shadow-md;
         background-color: #333333;
     }
+    .nav-container {
+        @apply flex flex-row items-center gap-4;
+    }
+    .logo {
+        @apply h-10 w-auto my-1;
+    }
     nav {
-        @apply p-5 max-w-screen-lg mx-auto flex items-center justify-between;
+        @apply flex items-center max-w-5xl justify-between flex-1 mx-auto;
     }
     main {
         @apply max-w-screen-lg mx-auto;
     }
-    .primary-btn {
-        @apply flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait;
-    }
-    .text-link {
+    /* .text-link {
         @apply font-semibold;
         color: #FFDD76;
         transition: 100ms all ease-in;
@@ -45,7 +48,7 @@
     .text-link:hover {
         color: #F67B8A;
         transition: 100ms all ease-in;
-    }
+    } */
     .nav-link {
         @apply text-slate-200 hover:bg-indigo-600 hover:text-white rounded-md px-3 py-2 text-sm font-bold;
         transition: 100ms all ease-in;
@@ -57,39 +60,61 @@
         @apply my-6 text-center text-3xl font-bold leading-9 text-slate-900;
     }
     .error {
-        @apply text-xs text-red-500 mt-1;
-    }
-    table {
-        @apply w-full text-sm text-left rounded-md shadow-lg overflow-hidden mb-6 table-auto bg-white;
-    }
-    thead {
-        @apply text-xs uppercase font-medium border-b border-slate-100 text-slate-600;
-    }
-    tbody tr {
-        @apply hover:bg-slate-100 w-full p-0;
-    }
-    th {
-        @apply px-6 py-4;
-    }
-    td {
-        @apply px-6 py-4 border-b border-slate-100;
-    }
-    .avatar {
-        @apply w-8 h-8 rounded-full overflow-hidden object-center object-cover;
-    }
-    .round-btn {
-        @apply w-8 h-8 overflow-auto rounded-full bg-slate-100 focus:outline-none focus:ring-1 focus:ring-slate-100 focus:ring-offset-2 focus:ring-offset-slate-800;
+        @apply text-sm text-red-500;
     }
     .auth-form {
-    @apply max-w-md mx-auto mt-8 p-8 shadow-2xl;
-    @apply border rounded-xl;
-    background-color: #333333;
-    border-color: #333333; 
+        @apply max-w-md mx-auto mt-8 p-8 shadow-2xl;
+        @apply border rounded-xl;
+        background-color: #333333;
+        border-color: #333333; 
+    }
+    .form-title {
+        @apply text-3xl font-extrabold text-slate-200 mb-8 text-center;
     }
     .form-group {
-    @apply mb-5;
+        @apply mb-5;
+    }
+    .search-title {
+        @apply text-3xl font-bold text-center mt-50;
+    }
+    .search-form {
+        @apply max-w-lg mx-auto my-6;
+    }
+    .search-bar {
+        @apply mb-8 flex flex-row justify-between items-center;
+    }
+    .search-input {
+        @apply block w-full border-0 px-5 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
+        background-color: #1A1A1A;
+        border-radius: 20px 0 0 20px;
     }
     .submit-button {
-    @apply w-full py-2 mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-150 ease-in-out;
+        @apply w-full py-2 mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-150 ease-in-out disabled:bg-slate-400 disabled:cursor-wait;
     }
+    .go-buttton {
+        @apply bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-r-md transition duration-150 ease-in-out;
+    }
+    .go-buttton:hover {
+        @apply cursor-pointer;
+    }
+    .search-settings {
+        @apply flex flex-row justify-center max-w-md mx-auto items-center;
+    }
+    .search-settings * {
+        @apply mx-2
+    }
+    .settings-label {
+        @apply text-base font-medium leading-6 text-slate-200 w-fit;
+    }
+    .drop-down {
+        @apply text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed;
+        background-color: #1A1A1A;
+    }
+    .drop-down option {
+        @apply text-sm;
+    }
+    .spacer {
+        @apply mx-1;
+    }
+
 }
