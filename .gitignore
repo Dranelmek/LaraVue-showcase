@@ -18,7 +18,11 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/temp
+/storage/output
 /vendor
 Homestead.json
 Homestead.yaml
 Thumbs.db
+yt-dlp.exe
+ffmpeg.exe

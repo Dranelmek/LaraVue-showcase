@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Converter;
+use Exception;
 
 class ConvertController extends Controller
 {
@@ -17,8 +18,16 @@ class ConvertController extends Controller
             'format' => 'required|in:mp3,mp4',
             'quality' => 'nullable|in:1080p,720p,480p,360p,144p',
         ]);
-        Converter::debug_to_console($validatedData);
-        // Conversion logic would go here
+        try {
+            $convertOutput = Converter::execute($validatedData);
+        } catch (Exception $e) {
+            return back()->withErrors([
+                'conv' => 'Conversion failed: ' . $e->getMessage(),
+            ]);
+        }
+        return back()->with([
+            'output' => $convertOutput,
+        ]);
     }
 
 }

@@ -62,6 +62,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Notes
 I this section I'll keep notes to myself and when the project is done I will adapt the entire readme
 
+when live shell commands are executed from *\LaraVue-showcase\public so yt-dlp and ffmpeg need to be installed in that folder.
+
+Ensure that the php installation is configured to allow zip extensions and the max execution time is forgiving (e.g. 300)
+
 ### Project scope
 This will be a simple CRUD site using Laravel for it's back end and Vue.js for it's frontend with Inertia for vue integration.
 The site will allow users to access the features of [FFDLP](https://github.com/Dranelmek/ffdlp) via their webbrowser.
@@ -72,3 +76,4 @@ Future developments beyond this demonstration could include:
     - ddos protection
     - rate limits for users
     - a subscription model
+    - implement more failsafes for bad requests

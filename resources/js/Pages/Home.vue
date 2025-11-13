@@ -1,5 +1,9 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+
+const page = usePage()
+const user = computed(() => page.props.auth.user)
 
 const form = useForm({
     url: null,
@@ -9,8 +13,11 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('home'));
+    form.reset('url');
 };
+
 </script>
+
 
 <template>
     <Head :title="`- ${$page.component}`"/>
@@ -18,8 +25,8 @@ const submit = () => {
     <form class=" search-form" @submit.prevent="submit">
         <div class="form-section search-bar">
             <label for="yt-url" class="sr-only">YouTube URL</label>
-            <input id="yt-url" name="url" type="text" placeholder="Paste YouTube link..." aria-label="YouTube URL"
-            class="search-input" required v-model="form.url"/>
+            <input id="yt-url" name="url" type="text" :placeholder="form.errors.url?'Enter valid URL...':'Paste YouTube link...'" aria-label="YouTube URL"
+            :class="form.errors.url?'search-input error':'search-input'" required v-model="form.url"/>
             <button type="submit" class="go-buttton">Go</button>
         </div>
         <div class="form-section search-settings">
@@ -34,17 +41,25 @@ const submit = () => {
             <label for="quality-select" class="settings-label">Video quality</label>
             <select id="quality-select" name="quality" class="quality-select drop-down" aria-label="Video quality"
             v-model="form.quality">
-                <option value="1080p" selected>1080p</option>
+                <option :value="null" selected>best</option>
+                <option value="1080p" >1080p</option>
                 <option value="720p">720p</option>
                 <option value="480p">480p</option>
                 <option value="360p">360p</option>
                 <option value="144p">144p</option>
             </select>
         </div>
-        
-        
     </form>
-    <!-- Search bar form to paste yt link and go button -->
+    <div class="login-prompt" v-if="!user">
+        <p>
+            To keep track of your previous downloads and access them anytime!
+        </p>
+        <p>
+            <Link :href="route('login')" class="login-link">Login</Link> or
+            <Link :href="route('register')" class="login-link">Register</Link> here!
+        </p>
+    </div>
+
     <!-- if logged in list of previous downloads with quick convert buttons -->
     <!-- else propmt to login or register -->
 </template>

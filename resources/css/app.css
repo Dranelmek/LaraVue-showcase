@@ -40,15 +40,6 @@
     main {
         @apply max-w-screen-lg mx-auto;
     }
-    /* .text-link {
-        @apply font-semibold;
-        color: #FFDD76;
-        transition: 100ms all ease-in;
-    }
-    .text-link:hover {
-        color: #F67B8A;
-        transition: 100ms all ease-in;
-    } */
     .nav-link {
         @apply text-slate-200 hover:bg-indigo-600 hover:text-white rounded-md px-3 py-2 text-sm font-bold;
         transition: 100ms all ease-in;
@@ -84,7 +75,7 @@
         @apply mb-8 flex flex-row justify-between items-center;
     }
     .search-input {
-        @apply block w-full border-0 px-5 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
+        @apply block w-full text-base border-0 px-5 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
         background-color: #1A1A1A;
         border-radius: 20px 0 0 20px;
     }
@@ -116,5 +107,10 @@
     .spacer {
         @apply mx-1;
     }
-
+    .login-prompt {
+        @apply max-w-md mx-auto mt-8 p-6 text-center text-lg;
+    }
+    .login-link {
+        @apply text-indigo-400 font-semibold hover:text-indigo-600;
+    }
 }
