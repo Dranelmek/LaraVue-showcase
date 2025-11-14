@@ -22,24 +22,31 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
 ## Notes
-I this section I'll keep notes to myself and when the project is done I will adapt the entire readme
 
-when live shell commands are executed from *\LaraVue-showcase\public so yt-dlp and ffmpeg need to be installed in that folder.
-
-Ensure that the php installation is configured to allow zip extensions and the max execution time is forgiving (e.g. 300)
+- Shell commands used by the application are executed from the project `public/` directory (Windows: `\LaraVue-showcase\public`). Ensure that `yt-dlp` and `ffmpeg` are installed and accessible either in the `public/` directory or on the system PATH.
+- PHP must include the Zip extension and be configured to allow long-running requests where appropriate. Set `max_execution_time` to a higher value (for example, `300` seconds) in `php.ini` or via runtime configuration.
+- Ensure required system dependencies and permissions are configured before running the application.
 
 ### Project scope
-This will be a simple CRUD site using Laravel for it's back end and Vue.js for it's frontend with Inertia for vue integration.
-The site will allow users to access the features of [FFDLP](https://github.com/Dranelmek/ffdlp) via their webbrowser.
-Note that this means all the logic originally implemented in Python will need to be rewritten in PHP. 
-The site will support account creation, data tracking, cookies and url parsing.
-Future developments beyond this demonstration could include:
-    <br>- better security
-    <br>- ddos protection
-    <br>- rate limits for users
-    <br>- a subscription model
-    <br>- implement more failsafes for bad requests
-    <br>- proper scheduling to handle many users at once
-    <br>- making a db migration to store the url of a download so users can reconvert a video they converted previously
-### Known bugs for future fixing
-    - double clicking the logout button results in a session timeout
+
+This project is a demonstration CRUD application using Laravel as the backend and Vue.js with Inertia for the frontend. The application exposes FFDLP functionality via a web interface, which requires porting the original Python logic to PHP.
+
+Core features:
+- User registration, authentication, and session management
+- Data tracking and basic analytics for user activity
+- Cookie handling and URL parsing for download/conversion workflows
+- Server-side conversion and media processing integration (via `yt-dlp` / `ffmpeg`)
+
+Potential future improvements:
+- Harden security (input validation, CSRF/authorization hardening)
+- DDoS mitigation and request throttling
+- Per-user rate limits and quotas
+- Subscription or billing model
+- Additional request validation and fail-safes
+- Scalable scheduling/queueing for concurrent conversions
+- Database migrations to persist download metadata and enable re-conversion
+- Logging and testing
+
+### Known issues
+
+- Double-clicking the logout button may cause a session timeout. Investigate debouncing the logout action or disabling the button after the first click.
