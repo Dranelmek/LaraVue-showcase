@@ -41,7 +41,7 @@ const user = computed(() => page.props.auth.user)
             <slot />
         </main>
         <footer>
-            <div class="footer-container text-center py-4 text-sm text-gray-600">
+            <div class="footer-container">
                 <p>FFDLP — LaraVue showcase</p>
                 <p>Built by Kem Ibodi • <a href="https://github.com/Dranelmek/LaraVue-showcase" target="_blank" rel="noopener noreferrer" class="underline">Project on GitHub</a></p>
             </div>

@@ -34,13 +34,12 @@ The site will allow users to access the features of [FFDLP](https://github.com/D
 Note that this means all the logic originally implemented in Python will need to be rewritten in PHP. 
 The site will support account creation, data tracking, cookies and url parsing.
 Future developments beyond this demonstration could include:
-    - better security
-    - ddos protection
-    - rate limits for users
-    - a subscription model
-    - implement more failsafes for bad requests
-    - proper scheduling to handle many users at once
-    - making a db migration to store the url of a download
-      so users can reconvert a video they converted previously
-#### Known bugs for future fixing
+    <br>- better security
+    <br>- ddos protection
+    <br>- rate limits for users
+    <br>- a subscription model
+    <br>- implement more failsafes for bad requests
+    <br>- proper scheduling to handle many users at once
+    <br>- making a db migration to store the url of a download so users can reconvert a video they converted previously
+### Known bugs for future fixing
     - double clicking the logout button results in a session timeout
