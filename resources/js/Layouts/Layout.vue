@@ -22,7 +22,7 @@ const user = computed(() => page.props.auth.user)
                     </div>
                     <div class="space-x-6">
                         <a href="https://github.com/Dranelmek/LaraVue-showcase"
-                        class="nav-link">GitHub</a>
+                        class="nav-link" target="_blank">GitHub</a>
                     </div>
                     
                     <div v-if="user" class="space-x-6">
@@ -40,6 +40,12 @@ const user = computed(() => page.props.auth.user)
         <main>
             <slot />
         </main>
+        <footer>
+            <div class="footer-container text-center py-4 text-sm text-gray-600">
+                <p>FFDLP — LaraVue showcase</p>
+                <p>Built by Kem Ibodi • <a href="https://github.com/Dranelmek/LaraVue-showcase" target="_blank" rel="noopener noreferrer" class="underline">Project on GitHub</a></p>
+            </div>
+        </footer>
     </div>
 </template>
 

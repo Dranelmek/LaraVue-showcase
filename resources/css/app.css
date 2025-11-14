@@ -11,23 +11,23 @@
     }
 }
 
-@layer components {
-    .auth-form input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="url"], textarea {
-        @apply block w-full border-0 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
-        background-color: #1A1A1A;
-    }
+@layer auth {
     .auth-form label {
         @apply block text-sm font-medium leading-6 text-slate-200 mb-1 first-letter:capitalize;
     }
-    header {
-        @apply shadow-md;
+    .auth-form {
+        @apply max-w-md mx-auto mt-8 p-8 shadow-2xl;
+        @apply border rounded-xl;
         background-color: #333333;
+        border-color: #333333; 
     }
+    .auth-form input[type="text"] {
+        @apply block w-full border-0 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
+        background-color: #1A1A1A;
+    }
+}
+
+@layer navigation {
     .nav-container {
         @apply flex flex-row items-center gap-4;
     }
@@ -37,9 +37,6 @@
     nav {
         @apply flex items-center max-w-5xl justify-between flex-1 mx-auto;
     }
-    main {
-        @apply max-w-screen-lg mx-auto;
-    }
     .nav-link {
         @apply text-slate-200 hover:bg-indigo-600 hover:text-white rounded-md px-3 py-2 text-sm font-bold;
         transition: 100ms all ease-in;
@@ -47,17 +44,11 @@
     .nav-link:hover {
         transition: 100ms all ease-in;
     }
-    .title {
-        @apply my-6 text-center text-3xl font-bold leading-9 text-slate-900;
-    }
+}
+
+@layer forms {
     .error {
         @apply text-sm text-red-500;
-    }
-    .auth-form {
-        @apply max-w-md mx-auto mt-8 p-8 shadow-2xl;
-        @apply border rounded-xl;
-        background-color: #333333;
-        border-color: #333333; 
     }
     .form-title {
         @apply text-3xl font-extrabold text-slate-200 mb-8 text-center;
@@ -65,6 +56,9 @@
     .form-group {
         @apply mb-5;
     }
+}
+
+@layer home {
     .search-title {
         @apply text-3xl font-bold text-center mt-40;
     }
@@ -141,7 +135,7 @@
         background-color: #1A1A1A;
     }
     .download-title {
-        @apply text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-200 dark:border-gray-700 pb-3;
+        @apply text-2xl font-bold text-gray-100 mb-6 border-b border-gray-700 pb-3;
     }
     .downloads-container{
         @apply text-center py-10;
@@ -150,30 +144,85 @@
         @apply mx-auto h-12 w-12 text-gray-400;
     }
     .no-downloads-subtitle {
-        @apply mt-2 text-sm font-medium text-gray-900 dark:text-gray-200;
+        @apply mt-2 text-sm font-medium text-gray-200;
     }
     .no-downloads-description {
-        @apply mt-1 text-sm text-gray-500 dark:text-gray-400;
+        @apply mt-1 text-sm text-gray-400;
     }
     .download-entry {
-        @apply flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition duration-150 ease-in-out hover:bg-gray-50 dark:hover:bg-gray-700/50 border border-gray-200 dark:border-gray-700;
+        @apply flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition duration-150 ease-in-out hover:bg-gray-700/50 border border-gray-700;
     }
     .download-name {
-        @apply text-lg font-semibold text-gray-900 dark:text-gray-100 truncate;
+        @apply text-lg font-semibold text-gray-100 truncate;
+    }
+    .download-name a {
+        @apply hover:text-indigo-600 transition duration-150;
     }
     .download-info {
-        @apply inline-flex items-center mx-0.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 mt-1 uppercase;
+        @apply inline-flex items-center mx-0.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900 text-indigo-200 mt-1 uppercase;
     }
     .download-date-container {
         @apply flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-right text-sm;
     }
     .download-date {
-        @apply text-gray-500 dark:text-gray-400 whitespace-nowrap;
+        @apply text-gray-400 whitespace-nowrap;
     }
     .delete-download {
-        @apply px-3 py-1 pr-1.5 text-sm font-medium rounded-full text-red-700 dark:text-red-400 border border-red-200 dark:border-red-600 hover:bg-red-100 dark:hover:bg-red-800 transition duration-150;
+        @apply px-3 py-1 pr-1.5 text-sm font-medium rounded-full text-red-400 border border-red-600 hover:bg-red-800 transition duration-150;
     }
     .delete-download-icon {
         @apply h-4 w-4 inline mr-1 -mt-0.5;
+    }
+}
+
+@layer components {
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="url"], textarea {
+        @apply block w-full border-0 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:ring-2 focus:ring-inset focus:ring-blue-500;
+        background-color: #1A1A1A;
+    }
+    header {
+        @apply shadow-md;
+        background-color: #333333;
+    }
+    main {
+        @apply max-w-screen-lg mx-auto;
+    }
+}
+
+@layer about {
+    .about-section{ 
+        @apply min-h-screen py-12 px-4;
+    }
+    .about-container {
+        @apply max-w-3xl mx-auto;
+    }
+    .about-title {
+        @apply text-4xl font-bold text-white mb-6;
+    }
+    .about-content {
+        @apply rounded-lg shadow-lg p-8 space-y-6;
+        background-color: #333333
+    }
+    .about-block-title {
+        @apply text-2xl font-semibold text-white mb-3;
+    }
+    .about-block-list {
+        @apply space-y-2 text-slate-300;
+    }
+    .about-block {
+        @apply text-slate-300 leading-relaxed;
+    }
+    .about-block a {
+        @apply text-blue-300 font-bold hover:text-indigo-600 transition duration-150;
+    }
+}
+
+@layer footer {
+    .footer-container {
+        @apply text-center py-4 text-sm text-slate-300
     }
 }

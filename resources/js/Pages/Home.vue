@@ -134,7 +134,7 @@
                     <!-- Name & Format (Left/Top) -->
                     <div class="flex-1 min-w-0 mb-2 sm:mb-0 pr-4">
                         <p class="download-name" :title="download.name">
-                            {{ download.name }}
+                            <a :href="'https://www.youtube.com/results?search_query='+ download.name" target=”_blank”>{{ download.name }}</a>
                         </p>
                         <span class="download-info">
                             {{ download.format || 'Unknown Format' }}
