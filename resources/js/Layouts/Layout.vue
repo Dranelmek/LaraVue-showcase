@@ -6,7 +6,7 @@ const page = usePage()
 const user = computed(() => page.props.auth.user)
 </script>
 <template>
-    <div>
+    <div class="body">
         <header>
             <div class="nav-container">
                 <img :src="getImageUrl(FFDLP)" alt="FFDLP Logo" class="logo" />
