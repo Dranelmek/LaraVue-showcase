@@ -25,36 +25,26 @@
     };
 
     function formatDate(isoString) {
-        // 1. Handle null, undefined, or empty string input
         if (!isoString) {
             return 'Error: Input is empty.';
         }
-
-        // 2. Create a Date object from the ISO string.
         const date = new Date(isoString);
-
-        // 3. Validate the Date object (check if it resulted in "Invalid Date")
         if (isNaN(date.getTime())) {
             return 'Error: Invalid Date Format (must be ISO 8601).';
         }
-
-        // 4. Define formatting options for a clear, readable output.
         const options = {
             year: 'numeric',
-            month: 'short',     // e.g., Nov
-            day: '2-digit',     // e.g., 13
+            month: 'short',
+            day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
-            hour12: true,       // e.g., PM/AM
-            timeZoneName: 'short', // e.g., GMT, PST, EST
+            hour12: true,
+            timeZoneName: 'short',
         };
-
-        // 5. Use toLocaleString for reliable, locale-aware formatting.
         try {
             return date.toLocaleString('en-US', options);
         } catch (error) {
-            // Fallback error handling
             return 'Error: Could not format date.';
         }
     }

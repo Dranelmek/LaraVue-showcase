@@ -8,6 +8,12 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    // mostly unchanged from project template
+    // changed the return function to cause a page refresh
+    // this is needed to properly reload the page's props
+    // there is probably a cleaner way of doing this so I
+    // would be interested in learning how to optimise this
+
     public function register(Request $request)
     {
         $validatedData = $request->validate([

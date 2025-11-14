@@ -35,6 +35,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // learnt how to pass the user and any aditional data as props
+        
         return [
             ...parent::share($request),
             'auth.user' => fn () => $request->user()

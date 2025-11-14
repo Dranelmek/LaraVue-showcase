@@ -4,10 +4,11 @@ namespace App\Scripts;
 
 class YTDLP
 {
-    // This class will contain methods that return an execution string for yt-dlp commands
+    // contains methods that return execution strings for yt-dlp commands
     
     public static function update()
     {
+        // simple update command
         $output = "yt-dlp -U 2>&1";
         return $output;
     }
