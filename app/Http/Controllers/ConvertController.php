@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Services\Converter;
+use App\Services\DownloadTracker;
 use Exception;
 
 class ConvertController extends Controller
@@ -18,6 +20,7 @@ class ConvertController extends Controller
             'format' => 'required|in:mp3,mp4',
             'quality' => 'nullable|in:1080p,720p,480p,360p,144p',
         ]);
+        
         try {
             $convertOutput = Converter::execute($validatedData);
         } catch (Exception $e) {
@@ -25,9 +28,17 @@ class ConvertController extends Controller
                 'conv' => 'Conversion failed: ' . $e->getMessage(),
             ]);
         }
-        return back()->with([
-            'output' => $convertOutput,
-        ]);
+        if ($request->user()) {
+            $db = new DownloadTracker;
+            $data = [
+                'user_id' => $request->user()->id,
+                'name' => $convertOutput['name'],
+                'format' => $validatedData['format'],
+                'quality' => $validatedData['quality'],
+            ];
+            $db->create($data);
+        }
+        // potentially store $convertOutput in logs
+        return redirect()->back()->with('fileReady', $convertOutput);
     }
-
 }

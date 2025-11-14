@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
@@ -12,7 +13,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required|string|unique:users,name',
-            'password' => 'required|string|confirmed|min:8',
+            'password' => 'required|string|confirmed|min:1',
         ]);
         $user = User::create([
             'email' => $validatedData['email'],
@@ -20,7 +21,7 @@ class AuthController extends Controller
             'password' => $validatedData['password'],
         ]);
         auth()->login($user);
-        return redirect()->route('home');
+        return Inertia::location(route('home'));
     }
 
     public function login(Request $request)
@@ -35,7 +36,7 @@ class AuthController extends Controller
         if (auth()->attempt([$loginField => $credentials['login_id'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'));
+            return Inertia::location(route('home'));
         }
 
         return back()->withErrors([
@@ -50,6 +51,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return Inertia::location(route('home'));
     }
 }

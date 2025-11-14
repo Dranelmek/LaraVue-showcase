@@ -28,7 +28,10 @@ class Converter
             $script = YTDLP::mp3Download($url);
             $MP3output = shell_exec($script);
             $output = $preCleanUp . "\n\n" . $MP3output;
-            return $output;
+            $files = Utils::getFileNamesInDirectory(storage_path('app/output/'));
+            $filename = end($files);
+            $response = ['name' => Utils::getFileNameWithoutExtension($filename), 'txtOut' => $output];
+            return $response;
         } elseif ($format === 'mp4') {
             if ($quality) {
                 $script = YTDLP::mp4Download($url, $quality);
@@ -61,7 +64,8 @@ class Converter
                     $output .= "\n\nFailed to clean up temporary files.";
                 }
             }
-            return $output;
+            $response = ['name' => Utils::getFileNameWithoutExtension($filename), 'txtOut' => $output];
+            return $response;
         }
 
         throw new Exception("Conversion failed for unknown reasons.");

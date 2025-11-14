@@ -77,3 +77,8 @@ Future developments beyond this demonstration could include:
     - rate limits for users
     - a subscription model
     - implement more failsafes for bad requests
+    - proper scheduling to handle many users at once
+    - making a db migration to store the url of a download
+      so users can reconvert a video they converted previously
+#### Known bugs for future fixing
+    - double clicking the logout button results in a session timeout
