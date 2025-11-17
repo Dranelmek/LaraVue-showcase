@@ -1,5 +1,5 @@
 # --- Stage 1: Build Assets (Vite & NPM) ---
-FROM node:24-alpine as build-assets
+FROM node:24-alpine AS build-assets
 
 # Set working directory for the asset build stage
 WORKDIR /app
@@ -28,13 +28,16 @@ RUN apk add --no-cache \
     curl \
     libc-dev \
     libxml2-dev \
+    build-base \
+    linux-headers \
+    php82-sockets \
     $([ $(apk search --purge -s pcre-dev | grep -q 'pcre' ; echo $?) -eq 0 ] && echo 'pcre-dev') \
     $([ $(apk search --purge -s zlib-dev | grep -q 'zlib' ; echo $?) -eq 0 ] && echo 'zlib-dev') \
     && docker-php-ext-install \
     pdo_mysql \
     opcache \
     bcmath \
-    sockets \
+    # REMOVED: sockets (now installed via apk add php82-sockets)
     && wget https://getcomposer.org/installer -O composer-setup.php \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
