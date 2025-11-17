@@ -1,5 +1,5 @@
 # --- Stage 1: Build Assets (Vite & NPM) ---
-FROM node:24.11.0 as build-assets
+FROM node:24-alpine as build-assets
 
 # Set working directory for the asset build stage
 WORKDIR /app

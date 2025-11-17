@@ -5,7 +5,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import Layout from './Layouts/Layout.vue';
 import { Head, Link } from '@inertiajs/vue3';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { ZiggyVue } from 'ziggy-js';
 
 createInertiaApp({
   title: title => `FFDLP ${title}`,
