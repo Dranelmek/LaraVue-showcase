@@ -10,6 +10,10 @@ class DownloadController extends Controller
 {
     public function downloads(Request $request): \Inertia\Response
     {
+        // to show a user's download history on the front end
+        // this function will return an array of downloads if
+        // the user is logged in if not it returns null
+
         if (! $request->user()) {
             return Inertia::render('Home', [
             'userDownloads' => null,
@@ -24,6 +28,8 @@ class DownloadController extends Controller
     
     public function destroy(Request $request)
     {
+        // lets user delete download from history via DELETE request
+        
         $downloadId = $request->id;
         $download = Download::find($downloadId);
         if (! $request->user()) {

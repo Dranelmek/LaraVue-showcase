@@ -6,7 +6,6 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
-// Route::inertia('/', 'Home')->name('home');
 Route::get('/', [DownloadController::class, 'downloads'])->name('home');
 Route::post('/', [ConvertController::class, 'convert']);
 
@@ -24,3 +23,5 @@ Route::inertia('/register', 'Auth/Register')->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/update', [ConvertController::class, 'update'])->name('update');

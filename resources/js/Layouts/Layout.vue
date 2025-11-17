@@ -43,7 +43,13 @@ const user = computed(() => page.props.auth.user)
         <footer>
             <div class="footer-container">
                 <p>FFDLP — LaraVue showcase</p>
-                <p>Built by Kem Ibodi • <a href="https://github.com/Dranelmek/LaraVue-showcase" target="_blank" rel="noopener noreferrer" class="underline">Project on GitHub</a></p>
+                <p>
+                    Built by Kem Ibodi • 
+                    <a href="https://github.com/Dranelmek/LaraVue-showcase" target="_blank" rel="noopener noreferrer" class="underline">Project on GitHub</a>
+                    <div v-if="user && user.id===1">
+                        <Link :href="route('update')">Update...</Link>
+                    </div>
+                </p>
             </div>
         </footer>
     </div>

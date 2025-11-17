@@ -1,14 +1,9 @@
-<script setup>
-
-</script>
-
 <template>
     <Head :title="`- ${$page.component}`"/>
     <div>
         <div class="about-section">
             <div class="about-container">
                 <h1 class="about-title">About FFDLP</h1>
-                
                 <div class="about-content">
                     <section>
                         <h2 class="about-block-title">Project Overview</h2>
@@ -48,6 +43,5 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </template>

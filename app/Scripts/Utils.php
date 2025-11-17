@@ -4,6 +4,10 @@ namespace App\Scripts;
 
 class Utils
 {
+    // utility functions, I was actually positively surprised at
+    // how many usefull functions are built into PHP especially
+    // for handling files and directories
+    
     public static function getFileNamesInDirectory($directory)
     {
         $files = [];

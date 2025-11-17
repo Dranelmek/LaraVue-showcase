@@ -9,8 +9,8 @@ use Exception;
 
 class Converter
 {
-    // This service would contain the logic to convert YouTube videos using yt-dlp and ffmpeg
-    // lets do some tests first
+    // This service contains the logic to convert YouTube videos using yt-dlp and ffmpeg
+    
     public static function execute($data) {
         $url = $data['url'];
         $format = $data['format'];
@@ -20,6 +20,7 @@ class Converter
             throw new Exception("Unsupported format: " . $format);
         }
 
+        // clean up the internal storage
         $preCleanUp = Utils::cleanUpTempAndOutput();
 
         $script = '';
@@ -68,14 +69,18 @@ class Converter
             return $response;
         }
 
+        // if the if-else block falls through something went wrong
+        // this line "should" never be reached
         throw new Exception("Conversion failed for unknown reasons.");
     }
 
-    public static function test($data)
+    public static function update()
     {
-        Utils::cleanUpTempAndOutput();
-        dd('DONE!');
+        // update the installation of yt-dlp
+
+        $script = YTDLP::update();
+        $update = shell_exec($script);
+        $output = "DONE!\n" . $update;
+        return $output;
     }
 }
-
-// Todo: Implement file download response and maybe handle the text output of shell_exec
