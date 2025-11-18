@@ -67,7 +67,7 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
 # Expose port 9000 (standard for PHP-FPM)
-EXPOSE 9000
+EXPOSE 10000
 
 # Start PHP-FPM
 # Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
