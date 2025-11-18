@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: your-laravel-app-name
+    # ... other settings (repo, branch, etc.)
+    envVars:
+      - key: PORT
+        value: "9000"  # This is the key setting
+      # ... other Laravel environment variables (APP_KEY, DB_HOST, etc.)
