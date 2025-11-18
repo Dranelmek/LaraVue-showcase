@@ -68,7 +68,7 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 
 # Expose port 9000 (standard for PHP-FPM)
 # EXPOSE 9000
-RUN -d -p 8080:80 nginx
+RUN -d -p 10000:80 nginx
 # Start PHP-FPM
 # Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
 CMD ["php-fpm"]
