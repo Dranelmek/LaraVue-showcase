@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('production', 'staging')) {
             // Force URL generation to use the HTTPS scheme
-            URL::forceScheme('https');
+            URL::forceScheme('http');
         }
     }
 }
