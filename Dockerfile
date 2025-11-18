@@ -1,77 +1,89 @@
-# --- Stage 1: Build Assets (Vite & NPM) ---
-FROM node:24-alpine AS build-assets
+# --- Stage 1: Build Frontend Assets (Node.js) ---
+FROM node:24-alpine AS frontend-builder
 
-# Set working directory for the asset build stage
+# Set working directory
 WORKDIR /app
 
-# Install dependencies for Node.js/NPM
+# Copy package.json and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy all project files
+# Copy application files (excluding those in .dockerignore)
 COPY . .
 
-# Build the frontend assets using Vite
-# Ensure your package.json has a "build" script that calls vite build
+# Build the frontend assets for production
 RUN npm run build
 
-# --- Stage 2: Production PHP/FPM Server ---
-# Use a lightweight PHP FPM image that includes necessary extensions (e.g., GD, MySQLi/PDO)
-FROM php:8.2-fpm-alpine
 
-# Install essential system dependencies and PHP extensions
-# We install git, common, and composer
+# --- Stage 2: PHP Composer Dependencies (PHP CLI) ---
+FROM php:8.2-cli AS composer
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Set working directory
+WORKDIR /app
+
+# Copy Composer files
+COPY composer.json composer.lock ./
+
+# Install PHP dependencies (production only)
+RUN composer install --no-dev --prefer-dist --optimize-autoloader
+
+
+# --- Stage 3: PHP-FPM Application Server ---
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+FROM php:8.2-fpm-alpine AS app
+
+# Install PHP extensions and system dependencies
+# Adjust these based on your specific Laravel requirements (e.g., gd, bcmath, redis, etc.)
 RUN apk add --no-cache \
-    git \
-    wget \
-    make \
-    curl \
-    libc-dev \
-    libxml2-dev \
-    build-base \
-    linux-headers \
-    php82-sockets \
-    $([ $(apk search --purge -s pcre-dev | grep -q 'pcre' ; echo $?) -eq 0 ] && echo 'pcre-dev') \
-    $([ $(apk search --purge -s zlib-dev | grep -q 'zlib' ; echo $?) -eq 0 ] && echo 'zlib-dev') \
-    && docker-php-ext-install \
-    pdo_mysql \
-    opcache \
-    bcmath \
-    # REMOVED: sockets (now installed via apk add php82-sockets)
-    && wget https://getcomposer.org/installer -O composer-setup.php \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && rm composer-setup.php
+    nginx \
+    supervisor \
+    libzip-dev \
+    libpng-dev \
+    jpeg-dev \
+    oniguruma-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql \
+        zip \
+        mbstring \
+        exif \
+        pcntl \
+        gd
 
-# Set working directory for the application
+# ⏱️ Configure PHP Maximum Execution Time (5 minutes = 300 seconds)
+# This creates a custom .ini file to override the default setting.
+RUN echo "max_execution_time = 300" > /usr/local/etc/php/conf.d/docker-php-maxexectime.ini \
+    && echo "upload_max_filesize = 100M" > /usr/local/etc/php/conf.d/docker-php-uploadsize.ini \
+    && echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/docker-php-uploadsize.ini
+
+# Set working directory
 WORKDIR /var/www/html
 
-# Copy the built assets from the first stage
-COPY --from=build-assets /app/public/build /var/www/html/public/build
-COPY --from=build-assets /app/node_modules /var/www/html/node_modules
-
-# Copy the rest of the application files
+# Copy the Laravel source code, excluding vendor
 COPY . .
 
-# --- Configure PHP ---
-# Set the maximum execution time to 5 minutes (300 seconds)
-# This is the key setting you requested.
-RUN echo "max_execution_time = 300" > /usr/local/etc/php/conf.d/zz-max-exec-time.ini
+# Copy installed Composer dependencies and built assets from previous stages
+COPY --from=composer /app/vendor /var/www/html/vendor
+COPY --from=frontend-builder /app/public/build /var/www/html/public/build
+COPY --from=frontend-builder /app/public/mix-manifest.json /var/www/html/public/mix-manifest.json
+# Note: Adjust paths above if you're using Vite instead of Mix
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Copy Nginx config file
+# You will need to create a `nginx.conf` file in your project root.
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Set appropriate permissions (important for caching and storage)
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Expose port 9000 (standard for PHP-FPM)
-EXPOSE 10000
+# Expose the port for the web server
+EXPOSE 9000
 
-COPY start.sh .
-
-RUN chmod +x start.sh
-# Start PHP-FPM
-# Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
-CMD ["./start.sh"]
+# The CMD should be defined in a `supervisord.conf` file or an entrypoint script
+# to run both php-fpm and nginx, as Render expects a single command.
+# For simplicity, we'll use a single command here, but a dedicated entrypoint script
+# is often better for a combined image.
+CMD ["/bin/sh", "-c", "supervisord -c /etc/supervisor/conf.d/supervisord.conf"]
