@@ -69,6 +69,9 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 # Expose port 9000 (standard for PHP-FPM)
 EXPOSE 10000
 
+COPY start.sh .
+
+RUN chmod +x start.sh
 # Start PHP-FPM
 # Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
 CMD ["./start.sh"]
