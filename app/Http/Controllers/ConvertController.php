@@ -59,7 +59,7 @@ class ConvertController extends Controller
         
         if ($request->user()->id === 1){
             $response = Converter::update();
-            dd($response);
+            dd(shell_exec("which yt-dlp") . "\n" . $response);
             return Inertia::location(route('home'));
         }
         return Inertia::location(route('home'));

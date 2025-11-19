@@ -45,8 +45,11 @@ RUN apk add --no-cache \
 RUN apk add --no-cache curl git caddy \
     && docker-php-ext-install pdo_mysql opcache bcmath
 
-# Install ffmpeg (Alpine)
-RUN apk add --no-cache ffmpeg
+# Install additional tools + ffmpeg + python
+RUN apk add --no-cache \
+    ffmpeg \
+    python3 \
+    py3-pip
 
 # Install yt-dlp (static Linux binary)
 RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
