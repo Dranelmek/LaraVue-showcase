@@ -26,7 +26,7 @@ class YTDLP
     {
         $out = storage_path("app/temp/%(title)s.%(ext)s");
 
-        $cmd = "yt-dlp ";
+        $cmd = "yt-dlp --extractor-args \"youtube:player_client=android\" ";
 
         if ($quality) {
             $height = rtrim($quality, "p");
