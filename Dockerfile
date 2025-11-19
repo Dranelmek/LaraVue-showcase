@@ -48,12 +48,12 @@ RUN apk add --no-cache curl git caddy \
 # Set working directory for the application
 WORKDIR /var/www/html
 
+# Copy the rest of the application files
+COPY . .
+
 # Copy the built assets from the first stage
 COPY --from=build-assets /app/public/build /var/www/html/public/build
 COPY --from=build-assets /app/node_modules /var/www/html/node_modules
-
-# Copy the rest of the application files
-COPY . .
 
 # --- Configure PHP ---
 # Set the maximum execution time to 5 minutes (300 seconds)
