@@ -25,3 +25,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/update', [ConvertController::class, 'update'])->name('update');
+
+// Debug Routs
+Route::get('/debug-dirs', function () {
+    return [
+        'temp_exists' => is_dir(storage_path('app/temp')),
+        'output_exists' => is_dir(storage_path('app/output')),
+        'temp_writable' => is_writable(storage_path('app/temp')),
+        'output_writable' => is_writable(storage_path('app/output')),
+    ];
+});
