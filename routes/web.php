@@ -49,3 +49,11 @@ Route::get('/debug-node', function () {
         'PATH' => getenv('PATH'),
     ];
 });
+
+Route::get('/debug-node-ytdlp', function () {
+    return [
+        "node" => trim(shell_exec("node -v 2>&1")),
+        "which_node" => trim(shell_exec("which node 2>&1")),
+        "yt_dlp_js" => trim(shell_exec("yt-dlp --dump-single-json https://www.youtube.com/watch?v=UnIhRpIT7nc 2>&1")),
+    ];
+});
