@@ -47,8 +47,6 @@ RUN apk add --no-cache curl git caddy \
 
 # Set working directory for the application
 WORKDIR /var/www/html
-RUN touch database/database.sqlite
-RUN chmod -R 775 database && chown -R www-data:www-data database
 
 # Copy the built assets from the first stage
 COPY --from=build-assets /app/public/build /var/www/html/public/build
@@ -70,6 +68,8 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
+    
+RUN chmod -R 775 database && chown -R www-data:www-data database
 
 # Caddy config
 COPY Caddyfile /etc/caddy/Caddyfile
