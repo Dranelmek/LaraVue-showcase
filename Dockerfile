@@ -17,7 +17,7 @@ RUN npm run build
 
 # --- Stage 2: Production PHP/FPM Server ---
 # Use a lightweight PHP FPM image that includes necessary extensions (e.g., GD, MySQLi/PDO)
-FROM php:8.2-fpm-alpine
+FROM php:8.2-apache
 
 # Install essential system dependencies and PHP extensions
 # We install git, common, and composer
@@ -66,9 +66,8 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-# Expose port 9000 (standard for PHP-FPM)
-# EXPOSE 9000
-EXPOSE 8000
+# Expose port 8000 (standard for PHP-FPM is 9000 but that doesn't work on render)
+EXPOSE 80
 # Start PHP-FPM
 # Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
-CMD ["php-fpm"]
+# CMD ["php-fpm"]
