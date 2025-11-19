@@ -6,16 +6,14 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Kernel;
 
 Route::get('/debug-url', function (Request $request) {
-    dd(app()->make(Kernel::class)->getMiddleware());
     return [
         'is_secure' => $request->isSecure(),
         'scheme' => $request->getScheme(),
-        'full_url' => $request->fullUrl(),
-        'app_url' => config('app.url'),
         'forwarded_proto' => $request->header('X-Forwarded-Proto'),
+        'host' => $request->getHost(),
+        'app_url' => config('app.url'),
     ];
 });
 
