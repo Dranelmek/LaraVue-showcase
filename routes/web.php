@@ -6,10 +6,10 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Route;
-// use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Kernel;
 
 Route::get('/debug-url', function (Request $request) {
-    // dd(app()->make(Kernel::class)->getMiddleware());
+    dd(app()->make(Kernel::class)->getMiddleware());
     return [
         'is_secure' => $request->isSecure(),
         'scheme' => $request->getScheme(),
