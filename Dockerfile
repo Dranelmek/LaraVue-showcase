@@ -66,8 +66,8 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-# Expose port 8000 (standard for PHP-FPM is 9000 but that doesn't work on render)
-EXPOSE 80
-# Start PHP-FPM
-# Render.com will likely use an Nginx or Caddy sidecar to communicate with this port.
-CMD ["php-fpm"]
+# Caddy config
+COPY Caddyfile /etc/caddy/Caddyfile
+
+EXPOSE 8080
+CMD ["sh", "-c", "php-fpm & caddy run --config /etc/caddy/Caddyfile"]
