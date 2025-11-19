@@ -5,17 +5,6 @@ use App\Http\Controllers\ConvertController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Route;
-
-Route::get('/debug-url', function (Request $request) {
-    return [
-        'is_secure' => $request->isSecure(),
-        'scheme' => $request->getScheme(),
-        'forwarded_proto' => $request->header('X-Forwarded-Proto'),
-        'host' => $request->getHost(),
-        'app_url' => config('app.url'),
-    ];
-});
 
 Route::get('/', [DownloadController::class, 'downloads'])->name('home');
 Route::post('/', [ConvertController::class, 'convert']);

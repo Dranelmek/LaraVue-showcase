@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ForceHttps
 {
     /**
+     * This middleware forces https for the website making it work when compilled in render.com
+     * 
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
@@ -17,7 +19,7 @@ class ForceHttps
     {
         $request->server->set('HTTPS', 'on');
         $request->headers->set('X-Forwarded-Proto', 'https');
-        
+
         return $next($request);
     }
 }
