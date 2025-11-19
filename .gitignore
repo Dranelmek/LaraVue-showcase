@@ -24,7 +24,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-yt-dlp.exe
-ffmpeg.exe
-
-TrustFFDLPProxies.php
+# yt-dlp.exe
+# ffmpeg.exe
