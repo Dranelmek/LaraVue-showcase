@@ -62,6 +62,12 @@ WORKDIR /var/www/html
 # Copy the rest of the application files
 COPY . .
 
+# Create necesarry temp and output folders
+RUN mkdir -p /var/www/html/storage/app/temp \
+    && mkdir -p /var/www/html/storage/app/output \
+    && chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage
+
 # Copy the built assets from the first stage
 COPY --from=build-assets /app/public/build /var/www/html/public/build
 COPY --from=build-assets /app/node_modules /var/www/html/node_modules
