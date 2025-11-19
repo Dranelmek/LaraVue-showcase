@@ -59,6 +59,10 @@ RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
 # Install Node.js (needed by yt-dlp for YouTube JS decryption)
 RUN apk add --no-cache nodejs npm
 
+# Symlink to node in /usr/local/bin for yt-dlp
+RUN ln -s /usr/bin/node /usr/local/bin/node
+RUN ln -s /usr/bin/npm /usr/local/bin/npm
+
 # Set working directory for the application
 WORKDIR /var/www/html
 
