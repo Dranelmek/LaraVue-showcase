@@ -42,6 +42,9 @@ RUN apk add --no-cache \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
 
+RUN apk add --no-cache curl git caddy \
+    && docker-php-ext-install pdo_mysql opcache bcmath
+    
 # Set working directory for the application
 WORKDIR /var/www/html
 
