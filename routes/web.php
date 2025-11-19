@@ -40,3 +40,12 @@ Route::get('/debug-ytdlp-run', function () {
     $cmd = 'yt-dlp -v -o "/var/www/html/storage/app/temp/%(title)s.%(ext)s" https://www.youtube.com/watch?v=UnIhRpIT7nc 2>&1';
     return shell_exec($cmd);
 });
+
+Route::get('/debug-node', function () {
+    return [
+        'which_node' => trim(shell_exec('which node')),
+        'node_v' => shell_exec('node -v 2>&1'),
+        'npm_v' => shell_exec('npm -v 2>&1'),
+        'PATH' => getenv('PATH'),
+    ];
+});
