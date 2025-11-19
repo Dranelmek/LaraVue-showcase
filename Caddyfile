@@ -5,5 +5,11 @@
 :8080
 
 root * /var/www/html/public
+
+# Laravel routing
 php_fastcgi 127.0.0.1:9000
+
 file_server
+
+# Send missing routes to Laravel
+try_files {path} {path}/ /index.php
