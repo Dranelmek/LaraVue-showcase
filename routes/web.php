@@ -6,6 +6,8 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
+dd(app()->make(\Illuminate\Contracts\Http\Kernel::class)->getMiddleware());
+
 Route::get('/', [DownloadController::class, 'downloads'])->name('home');
 Route::post('/', [ConvertController::class, 'convert']);
 
