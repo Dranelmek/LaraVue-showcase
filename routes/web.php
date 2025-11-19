@@ -4,7 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConvertController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Route;
 // use Illuminate\Contracts\Http\Kernel;
 
 Route::get('/debug-url', function (Request $request) {
