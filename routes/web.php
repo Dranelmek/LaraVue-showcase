@@ -6,7 +6,16 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
-dd(app()->make(\Illuminate\Contracts\Http\Kernel::class)->getMiddleware());
+Route::get('/debug-url', function (Request $request) {
+    dd(app()->make(\Illuminate\Contracts\Http\Kernel::class)->getMiddleware());
+    return [
+        'is_secure' => $request->isSecure(),
+        'scheme' => $request->getScheme(),
+        'full_url' => $request->fullUrl(),
+        'app_url' => config('app.url'),
+        'forwarded_proto' => $request->header('X-Forwarded-Proto'),
+    ];
+});
 
 Route::get('/', [DownloadController::class, 'downloads'])->name('home');
 Route::post('/', [ConvertController::class, 'convert']);
