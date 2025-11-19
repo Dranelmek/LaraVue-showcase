@@ -44,9 +44,11 @@ RUN apk add --no-cache \
 
 RUN apk add --no-cache curl git caddy \
     && docker-php-ext-install pdo_mysql opcache bcmath
-    
+
 # Set working directory for the application
 WORKDIR /var/www/html
+RUN touch database/database.sqlite
+RUN chmod -R 775 database && chown -R www-data:www-data database
 
 # Copy the built assets from the first stage
 COPY --from=build-assets /app/public/build /var/www/html/public/build
