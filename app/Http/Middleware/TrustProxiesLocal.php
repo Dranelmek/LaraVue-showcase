@@ -3,7 +3,7 @@
 use Illuminate\Http\Middleware\TrustProxies as Middleware;
 use Illuminate\Http\Request;
 
-class TrustProxies extends Middleware
+class TrustProxiesLocal extends Middleware
 {
     /**
      * The trusted proxies for this application.
