@@ -13,10 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->appendToGlobal(TrustProxies::class);
         $middleware->web(append: [
             HandleInertiaRequests::class,
-            TrustProxies::class,
-        ]);        
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
