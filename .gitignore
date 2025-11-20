@@ -20,6 +20,7 @@
 /storage/pail
 /storage/temp
 /storage/output
+/storage/cookies/cookies.txt
 /vendor
 Homestead.json
 Homestead.yaml
