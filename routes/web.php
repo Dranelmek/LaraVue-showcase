@@ -38,7 +38,7 @@ Route::get('/debug-dirs', function () {
 });
 
 Route::get('/debug-ytdlp-run', function () {
-    $cmd = 'yt-dlp -v -o "/var/www/html/storage/app/temp/%(title)s.%(ext)s" https://www.youtube.com/watch?v=UnIhRpIT7nc 2>&1';
+    $cmd = 'yt-dlp -v -o "/var/www/html/storage/app/temp/%(title)s.%(ext)s" https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1';
     return shell_exec($cmd);
 });
 
