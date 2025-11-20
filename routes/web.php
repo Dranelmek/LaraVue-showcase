@@ -58,3 +58,15 @@ Route::get('/debug-node-ytdlp', function () {
         "yt_dlp_js" => trim(shell_exec("yt-dlp --dump-single-json https://www.youtube.com/watch?v=UnIhRpIT7nc 2>&1")),
     ];
 });
+
+Route::get('/debug-cookies-file', function () {
+    $path = storage_path('cookies/cookies.txt');
+    return [
+        'exists' => file_exists($path),
+        'size' => file_exists($path) ? filesize($path) : 0,
+        'first_lines' => file_exists($path)
+            ? implode("\n", array_slice(file($path), 0, 5))
+            : null,
+        'absolute_path' => $path,
+    ];
+});
