@@ -72,8 +72,5 @@ RUN chown -R www-data:www-data bootstrap/cache \
 # Caddy config
 COPY Caddyfile /etc/caddy/Caddyfile
 
-# Runtime-writable SQLite DB
-RUN touch /tmp/laravel.sqlite && chmod 666 /tmp/laravel.sqlite
-
 EXPOSE 8080
 CMD ["sh", "-c", "php-fpm & caddy run --config /etc/caddy/Caddyfile"]
