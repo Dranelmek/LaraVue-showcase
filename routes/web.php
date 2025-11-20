@@ -33,6 +33,7 @@ Route::get('/debug-dirs', function () {
         'output_exists' => is_dir(storage_path('app/output')),
         'temp_writable' => is_writable(storage_path('app/temp')),
         'output_writable' => is_writable(storage_path('app/output')),
+        'cookies_exists' => is_dir(storage_path('cookies')),
     ];
 });
 
