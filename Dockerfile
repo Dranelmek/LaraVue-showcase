@@ -43,8 +43,8 @@ RUN wget https://getcomposer.org/installer -O composer-setup.php \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
 
-# Install yt-dlp (pip version — RECOMMENDED)
-RUN pip3 install --upgrade yt-dlp
+# Install yt-dlp (from Alpine package repo)
+RUN apk add --no-cache yt-dlp
 
 # Ensure php-fpm can access storage
 WORKDIR /var/www/html
