@@ -60,7 +60,7 @@ Route::get('/debug-node-ytdlp', function () {
 });
 
 Route::get('/debug-cookies-file', function () {
-    $path = '/etc/secrets/cookies.txt';
+    $path = storage_path('cookies/cookies.txt');;
 
     return [
         'exists' => file_exists($path),
@@ -74,7 +74,7 @@ Route::get('/debug-cookies-file', function () {
 });
 
 Route::get('/debug-ytdlp', function () {
-    $cookies = '/etc/secrets/cookies.txt';
+    $cookies = storage_path('cookies/cookies.txt');;
 
     $cmd = 'yt-dlp -v --cookies ' . escapeshellarg($cookies) .
            ' https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1';

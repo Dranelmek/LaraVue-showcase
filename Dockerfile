@@ -77,4 +77,8 @@ RUN chmod -R 644 /etc/secrets || true
 
 
 EXPOSE 8080
-CMD ["sh", "-c", "php-fpm & caddy run --config /etc/caddy/Caddyfile"]
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
+
