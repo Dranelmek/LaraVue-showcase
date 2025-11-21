@@ -17,19 +17,14 @@ class FFMPEG
         }
 
         $outputDir = storage_path('app/output');
-        if (!is_dir($outputDir)) {
-            mkdir($outputDir, 0775, true);
-        }
+        if (!is_dir($outputDir)) mkdir($outputDir, 0775, true);
 
         $baseName = Utils::getFileNameWithoutExtension($inputPath);
         $outputPath = str_replace('\\', '/', $outputDir . '/' . $baseName . '.mp4');
 
-        // Correct low-memory FFmpeg command with right ordering
+        // Alpine-compatible low-memory FFmpeg command
         $cmd = "ffmpeg -y "
             . "-threads 1 "
-            . "-fflags +low_delay "
-            . "-rtbufsize 8M "
-            . "-buffer_size 8M "
             . "-i " . escapeshellarg($inputPath) . " "
             . "-max_muxing_queue_size 2048 "
             . "-c:v libx264 -preset ultrafast -tune fastdecode "
