@@ -64,9 +64,6 @@ Route::get('/debug-cookies-file', function () {
     return [
         'exists' => file_exists($path),
         'size' => file_exists($path) ? filesize($path) : 0,
-        'first_lines' => file_exists($path)
-            ? implode("\n", array_slice(file($path), 0, 5))
-            : null,
         'absolute_path' => $path,
     ];
 });
