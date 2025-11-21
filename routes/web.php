@@ -82,6 +82,7 @@ Route::get('/debug-ytdlp', function () {
         . '--cookies ' . escapeshellarg($cookies) . ' '
         . '--restrict-filenames '
         . '--paths temp=' . escapeshellarg($tempPath) . ' '
+        . '--paths home=' . escapeshellarg($tempPath) . ' '
         . escapeshellarg('https://www.youtube.com/watch?v=6wyaN_vPkXM')
         . ' 2>&1';
 
