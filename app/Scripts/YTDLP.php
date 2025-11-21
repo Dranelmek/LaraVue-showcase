@@ -5,6 +5,9 @@ namespace App\Scripts;
 class YTDLP
 {
     // contains methods that return execution strings for yt-dlp commands
+    // commands had to be heavily altered between local and production build
+    // to account for linux environment and for youtube account bypass.
+    // locally commands can be way less complex!
 
     public static function update()
     {
@@ -16,8 +19,8 @@ class YTDLP
     {
         $cookiesFile = storage_path('cookies/cookies.txt');
 
-        $tempPath  = storage_path("app/temp");     // fragment downloads, temp files
-        $finalPath = storage_path("app/output");   // final mp3 output
+        $tempPath  = storage_path("app/temp");
+        $finalPath = storage_path("app/output");
 
         $outFormat = "%(title)s.%(ext)s";
 
@@ -30,8 +33,6 @@ class YTDLP
             . escapeshellarg($url)
             . " 2>&1";
     }
-
-
 
     public static function mp4Download($url, $quality = null)
     {

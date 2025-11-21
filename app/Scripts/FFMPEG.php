@@ -10,6 +10,7 @@ class FFMPEG
 
     public static function convertToMP4($inputPath)
     // Smart solution for better performance on limited server
+    // locally the logic can be much simpler!
 
     {
         $inputPath = str_replace('\\', '/', $inputPath);
@@ -24,9 +25,7 @@ class FFMPEG
         $baseName = Utils::getFileNameWithoutExtension($inputPath);
         $outputPath = str_replace('\\', '/', $outputDir . '/' . $baseName . '.mp4');
 
-        //
         // 1. Probe the input file to detect codecs
-        //
         $probeCmd = "ffprobe -v error -select_streams v:0 "
                 . "-show_entries stream=codec_name "
                 . "-of default=noprint_wrappers=1:nokey=1 "
@@ -41,9 +40,7 @@ class FFMPEG
 
         $audioCodec = trim(shell_exec($probeCmdA));
 
-        //
         // 2. If already H.264 + AAC → no conversion, only remux
-        //
         if ($videoCodec === "h264" && $audioCodec === "aac") {
             $cmd = "ffmpeg -y -i "
                 . escapeshellarg($inputPath)
@@ -53,9 +50,7 @@ class FFMPEG
             return $cmd;
         }
 
-        //
         // 3. Otherwise → safe low-memory encode
-        //
         $cmd = "ffmpeg -y -threads 1 "
             . "-i " . escapeshellarg($inputPath) . " "
             . "-max_muxing_queue_size 2048 "
@@ -63,7 +58,6 @@ class FFMPEG
             . "-c:a aac -b:a 128k "
             . escapeshellarg($outputPath)
             . " 2>&1";
-
         return $cmd;
     }
 }
