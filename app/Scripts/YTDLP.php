@@ -16,19 +16,16 @@ class YTDLP
     {
         $cookiesFile = storage_path('cookies/cookies.txt');
 
-        $tempPath  = storage_path("app/temp");
-        $finalPath = storage_path("app/output");
+        $tempPath  = storage_path("app/temp");     // fragment downloads, temp files
+        $finalPath = storage_path("app/output");   // final mp3 output
 
-        // yt-dlp writes final file using home=...
-        // fragments and .ytdl temp go into temp=...
         $outFormat = "%(title)s.%(ext)s";
 
         return 'yt-dlp '
             . '--cookies ' . escapeshellarg($cookiesFile) . ' '
-            . '--restrict-filenames '
             . '--extractor-args "youtube:player_client=android" '
-            . '--paths temp=' . escapeshellarg($tempPath) . ' '
-            . '--paths home=' . escapeshellarg($finalPath) . ' '
+            . '--paths temp:' . escapeshellarg($tempPath) . ' '
+            . '--paths home:' . escapeshellarg($finalPath) . ' '
             . '-x --audio-format mp3 '
             . '-o ' . escapeshellarg($outFormat) . ' '
             . escapeshellarg($url)
@@ -36,21 +33,21 @@ class YTDLP
     }
 
 
+
     public static function mp4Download($url, $quality = null)
     {
         $cookiesFile = storage_path('cookies/cookies.txt');
 
-        $tempPath  = storage_path("app/temp");   // final MP4 lives here
-        $workPath  = storage_path("app/temp");   // also used as temp workspace
+        $tempPath  = storage_path("app/temp");   // final mp4 SHOULD land here
+        $workPath  = storage_path("app/temp");   // temp workspace also here
 
         $outFormat = "%(title)s.%(ext)s";
 
         $cmd = 'yt-dlp '
             . '--cookies ' . escapeshellarg($cookiesFile) . ' '
-            . '--restrict-filenames '
             . '--extractor-args "youtube:player_client=android" '
-            . '--paths temp=' . escapeshellarg($workPath) . ' '
-            . '--paths home=' . escapeshellarg($tempPath) . ' ';
+            . '--paths temp:' . escapeshellarg($workPath) . ' '
+            . '--paths home:' . escapeshellarg($tempPath) . ' ';
 
         if ($quality) {
             $height = rtrim($quality, "p");
@@ -63,5 +60,4 @@ class YTDLP
 
         return $cmd;
     }
-
 }
