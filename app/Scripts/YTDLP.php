@@ -25,7 +25,7 @@ class YTDLP
 
     public static function mp4Download($url, $quality = null)
     {
-        $cookiesFile = '/etc/secrets/cookies.txt';
+        $cookiesFile = '/etc/secrets/cookies.txt.gz';
         $out = storage_path("app/temp/%(title)s.%(ext)s");
 
         $cmd = 'yt-dlp --cookies "' . $cookiesFile . '" --extractor-args "youtube:player_client=android" ';
