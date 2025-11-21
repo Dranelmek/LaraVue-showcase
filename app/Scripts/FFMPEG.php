@@ -5,11 +5,11 @@ use App\Scripts\Utils;
 
 class FFMPEG
 {
+    // Changed logic purely for Render.com to minmise ram usage
+    // original code would work on a paid server!
+
     public static function convertToMP4($inputPath)
     {
-        // Changed logic purely for Render.com to minmise ram usage
-        // original code would work on a paid server!
-        
         $inputPath = str_replace('\\', '/', $inputPath);
 
         if (!file_exists($inputPath)) {
@@ -24,14 +24,14 @@ class FFMPEG
         $baseName = Utils::getFileNameWithoutExtension($inputPath);
         $outputPath = str_replace('\\', '/', $outputDir . '/' . $baseName . '.mp4');
 
-        // Low-memory FFmpeg command
+        // Correct low-memory FFmpeg command with right ordering
         $cmd = "ffmpeg -y "
             . "-threads 1 "
             . "-fflags +low_delay "
             . "-rtbufsize 8M "
             . "-buffer_size 8M "
-            . "-max_muxing_queue_size 2048 "
             . "-i " . escapeshellarg($inputPath) . " "
+            . "-max_muxing_queue_size 2048 "
             . "-c:v libx264 -preset ultrafast -tune fastdecode "
             . "-c:a aac -b:a 128k "
             . escapeshellarg($outputPath)
