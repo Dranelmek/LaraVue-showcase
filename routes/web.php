@@ -74,10 +74,18 @@ Route::get('/debug-cookies-file', function () {
 });
 
 Route::get('/debug-ytdlp', function () {
-    $cookies = storage_path('cookies/cookies.txt');;
+    $cookies = storage_path('cookies/cookies.txt');
 
-    $cmd = 'yt-dlp -v --cookies ' . escapeshellarg($cookies) .
-           ' https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1';
+    $tempPath = storage_path('app/temp');
+    $homePath = storage_path('app/temp'); // same as your mp4 download logic
+
+    $cmd = 'yt-dlp -v '
+        . '--cookies ' . escapeshellarg($cookies) . ' '
+        . '--restrict-filenames '
+        . '--paths temp=' . escapeshellarg($tempPath) . ' '
+        . '--paths home=' . escapeshellarg($homePath) . ' '
+        . escapeshellarg('https://www.youtube.com/watch?v=6wyaN_vPkXM')
+        . ' 2>&1';
 
     exec($cmd, $out, $code);
 
@@ -86,6 +94,7 @@ Route::get('/debug-ytdlp', function () {
         'output' => implode("\n", $out),
     ];
 });
+
 
 Route::get('/debug-perms', function () {
     $paths = [

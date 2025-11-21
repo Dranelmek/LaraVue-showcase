@@ -25,6 +25,7 @@ class YTDLP
 
         return 'yt-dlp '
             . '--cookies ' . escapeshellarg($cookiesFile) . ' '
+            . '--restrict-filenames '
             . '--extractor-args "youtube:player_client=android" '
             . '--paths temp=' . escapeshellarg($tempPath) . ' '
             . '--paths home=' . escapeshellarg($finalPath) . ' '
@@ -46,6 +47,7 @@ class YTDLP
 
         $cmd = 'yt-dlp '
             . '--cookies ' . escapeshellarg($cookiesFile) . ' '
+            . '--restrict-filenames '
             . '--extractor-args "youtube:player_client=android" '
             . '--paths temp=' . escapeshellarg($workPath) . ' '
             . '--paths home=' . escapeshellarg($tempPath) . ' ';
@@ -61,4 +63,5 @@ class YTDLP
 
         return $cmd;
     }
+
 }
