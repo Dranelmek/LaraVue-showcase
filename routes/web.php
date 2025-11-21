@@ -60,23 +60,29 @@ Route::get('/debug-node-ytdlp', function () {
 });
 
 Route::get('/debug-cookies-file', function () {
-    $path = storage_path('cookies/cookies.txt.gz');
+    $path = '/etc/secrets/cookies.txt';
+
     return [
         'exists' => file_exists($path),
+        'readable' => is_readable($path),
         'size' => file_exists($path) ? filesize($path) : 0,
-        'absolute_path' => $path,
+        'preview' => file_exists($path)
+            ? implode("\n", array_slice(file($path), 0, 5))
+            : null,
+        'path' => $path,
     ];
 });
 
-Route::get('/debug-ytdlp-cookies', function () {
-    $path = storage_path('cookies/cookies.txt.gz');
+Route::get('/debug-ytdlp', function () {
+    $cookies = '/etc/secrets/cookies.txt';
 
-    $cmd = "yt-dlp --cookies \"$path\" --dump-single-json https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1";
+    $cmd = 'yt-dlp -v --cookies ' . escapeshellarg($cookies) .
+           ' https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1';
 
-    exec($cmd, $output, $exit);
+    exec($cmd, $out, $code);
 
     return [
-        'exit_code' => $exit,
-        'output' => implode("\n", $output),
+        'exit_code' => $code,
+        'output' => implode("\n", $out),
     ];
 });
