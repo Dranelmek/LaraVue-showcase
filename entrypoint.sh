@@ -3,20 +3,11 @@
 echo "== DEBUG: Listing /etc/secrets =="
 ls -l /etc/secrets
 
-# Ensure cookies directory exists
+# Ensure storage/cookies directory exists
 mkdir -p /var/www/html/storage/cookies
 chmod 777 /var/www/html/storage/cookies
 
-# Ensure yt-dlp directories exist
-mkdir -p /var/www/html/storage/app/temp
-mkdir -p /var/www/html/storage/app/output
-
-# Make everything writable by the runtime user
-chmod -R 777 /var/www/html/storage/app/temp
-chmod -R 777 /var/www/html/storage/app/output
-chown -R www-data:www-data /var/www/html/storage
-
-# Copy secret cookies file
+# Copy the cookies file from Render secret
 if [ -f /etc/secrets/cookies.txt ]; then
     echo "Found cookies.txt"
     cp /etc/secrets/cookies.txt /var/www/html/storage/cookies/cookies.txt
@@ -27,5 +18,12 @@ else
     echo "No cookies file found in /etc/secrets"
 fi
 
+if [ -f /var/www/html/storage/cookies/cookies.txt ]; then
+    echo "Setting permissions on cookies.txt"
+    chmod 644 /var/www/html/storage/cookies/cookies.txt
+    chown www-data:www-data /var/www/html/storage/cookies/cookies.txt 2>/dev/null || true
+fi
+
+# Run services
 php-fpm &
 caddy run --config /etc/caddy/Caddyfile
