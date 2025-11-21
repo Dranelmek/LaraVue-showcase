@@ -60,7 +60,7 @@ Route::get('/debug-node-ytdlp', function () {
 });
 
 Route::get('/debug-cookies-file', function () {
-    $path = '/etc/secrets/cookies.txt';
+    $path = storage_path('cookies/cookies.txt.gz');
     return [
         'exists' => file_exists($path),
         'size' => file_exists($path) ? filesize($path) : 0,
