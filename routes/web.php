@@ -67,3 +67,16 @@ Route::get('/debug-cookies-file', function () {
         'absolute_path' => $path,
     ];
 });
+
+Route::get('/debug-ytdlp-cookies', function () {
+    $path = storage_path('cookies/cookies.txt.gz');
+
+    $cmd = "yt-dlp --cookies \"$path\" --dump-single-json https://www.youtube.com/watch?v=6wyaN_vPkXM 2>&1";
+
+    exec($cmd, $output, $exit);
+
+    return [
+        'exit_code' => $exit,
+        'output' => implode("\n", $output),
+    ];
+});
