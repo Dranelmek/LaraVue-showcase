@@ -74,17 +74,15 @@ Route::get('/debug-cookies-file', function () {
 });
 
 Route::get('/debug-ytdlp', function () {
-    $cookies = storage_path('cookies/cookies.txt');
 
+    $cookies  = storage_path('cookies/cookies.txt');
     $tempPath = storage_path('app/temp');
-
-    // IMPORTANT: only one --paths argument
-    $pathsArg = "temp=$tempPath home=$tempPath";
 
     $cmd = 'yt-dlp -v '
         . '--cookies ' . escapeshellarg($cookies) . ' '
         . '--restrict-filenames '
-        . '--paths ' . escapeshellarg($pathsArg) . ' '
+        . '--paths temp=' . escapeshellarg($tempPath) . ' '
+        . 'home=' . escapeshellarg($tempPath) . ' '
         . escapeshellarg('https://www.youtube.com/watch?v=6wyaN_vPkXM')
         . ' 2>&1';
 
@@ -92,12 +90,10 @@ Route::get('/debug-ytdlp', function () {
 
     return [
         'exit_code' => $code,
-        'output' => implode("\n", $out),
-        'command' => $cmd,
+        'output'    => implode("\n", $out),
+        'command'   => $cmd,
     ];
 });
-
-
 
 Route::get('/debug-perms', function () {
     $paths = [
