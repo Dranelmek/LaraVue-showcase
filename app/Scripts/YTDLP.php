@@ -17,7 +17,7 @@ class YTDLP
         $cookiesFile = storage_path('cookies/cookies.txt.gz');
         $out = storage_path("app/output/%(title)s.%(ext)s");
 
-        return 'yt-dlp --cookies "' . $cookiesFile . '" --extractor-args "youtube:player_client=android" -x --audio-format mp3 -o ' .
+        return 'yt-dlp --cookies ' . $cookiesFile . ' --extractor-args "youtube:player_client=android" -x --audio-format mp3 -o ' .
             escapeshellarg($out) . " " .
             escapeshellarg($url) .
             " 2>&1";
@@ -28,7 +28,7 @@ class YTDLP
         $cookiesFile = storage_path('cookies/cookies.txt.gz');
         $out = storage_path("app/temp/%(title)s.%(ext)s");
 
-        $cmd = 'yt-dlp --cookies "' . $cookiesFile . '" --extractor-args "youtube:player_client=android" ';
+        $cmd = 'yt-dlp --cookies ' . $cookiesFile . ' --extractor-args "youtube:player_client=android" ';
 
         if ($quality) {
             $height = rtrim($quality, "p");
