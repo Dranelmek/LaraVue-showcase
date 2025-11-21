@@ -14,7 +14,7 @@ class YTDLP
 
     public static function mp3Download($url)
     {
-        $cookiesFile = '/etc/secrets/cookies.txt.gz';
+        $cookiesFile = storage_path('cookies/cookies.txt.gz');
         $out = storage_path("app/output/%(title)s.%(ext)s");
 
         return 'yt-dlp --cookies "' . $cookiesFile . '" --extractor-args "youtube:player_client=android" -x --audio-format mp3 -o ' .
@@ -25,7 +25,7 @@ class YTDLP
 
     public static function mp4Download($url, $quality = null)
     {
-        $cookiesFile = '/etc/secrets/cookies.txt.gz';
+        $cookiesFile = storage_path('cookies/cookies.txt.gz');
         $out = storage_path("app/temp/%(title)s.%(ext)s");
 
         $cmd = 'yt-dlp --cookies "' . $cookiesFile . '" --extractor-args "youtube:player_client=android" ';
