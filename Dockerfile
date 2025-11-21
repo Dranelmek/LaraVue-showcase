@@ -72,5 +72,9 @@ RUN chown -R www-data:www-data bootstrap/cache \
 # Caddy config
 COPY Caddyfile /etc/caddy/Caddyfile
 
+# Allow www-data to read Render secret files
+RUN chmod -R 644 /etc/secrets || true
+
+
 EXPOSE 8080
 CMD ["sh", "-c", "php-fpm & caddy run --config /etc/caddy/Caddyfile"]
