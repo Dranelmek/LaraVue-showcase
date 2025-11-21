@@ -86,3 +86,17 @@ Route::get('/debug-ytdlp', function () {
         'output' => implode("\n", $out),
     ];
 });
+
+Route::get('/debug-perms', function () {
+    $paths = [
+        storage_path('app/temp'),
+        storage_path('app/output'),
+    ];
+
+    foreach ($paths as $p) {
+        echo "$p<br>";
+        echo "Exists: " . (file_exists($p) ? "yes" : "no") . "<br>";
+        echo "Readable: " . (is_readable($p) ? "yes" : "no") . "<br>";
+        echo "Writable: " . (is_writable($p) ? "yes" : "no") . "<br><br>";
+    }
+});
